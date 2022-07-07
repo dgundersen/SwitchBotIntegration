@@ -26,7 +26,7 @@ class SwitchBotApi(ApiInterface):
             with open(file_name_and_path, 'r') as f:
                 json_file = json.load(f)
         except Exception as ex:
-            self.log.error(ex, exc_info=False)
+            print(f'Exception opening file: {ex}')
 
         return json_file
 
