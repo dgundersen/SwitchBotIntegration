@@ -1,34 +1,22 @@
-import json
 from switchbot.api_interface import ApiInterface
+from switchbot.config import AppConfig
 
 
 # Switch-Bot reference
 # https://github.com/OpenWonderLabs/SwitchBotAPI
 class SwitchBotApi(ApiInterface):
 
-    DEFAULT_CONFIG_FILE_PATH = 'switchbot_config.json'
-
     def __init__(self):
         super(SwitchBotApi, self).__init__(
             base_url='https://api.switch-bot.com/v1.0/'
         )
 
-        # TODO: error handling for missing file or token
-        config = self.load_json_file(self.DEFAULT_CONFIG_FILE_PATH)
+        app_config = AppConfig()
+
+        config = app_config.get_config()
 
         self.token = config['token']
         self.desklight_device_id = config['desklight_device_id']
-
-    def load_json_file(self, file_name_and_path):
-        json_file = None
-
-        try:
-            with open(file_name_and_path, 'r') as f:
-                json_file = json.load(f)
-        except Exception as ex:
-            print(f'Exception opening file: {ex}')
-
-        return json_file
 
     def _get_body_from_response(self, resp):
         if resp and 'message' in resp:

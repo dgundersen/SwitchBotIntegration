@@ -2,6 +2,8 @@
 
 
 class QueryClient:
+    
+    ONE_GB_IN_BYTES = 1073741824
 
     def __init__(self, client):
         self.client = client
@@ -26,10 +28,10 @@ class QueryClient:
         progress_percentage = query_status["ProgressPercentage"]
         print(f"Query progress so far: {progress_percentage}%")
 
-        bytes_scanned = float(query_status["CumulativeBytesScanned"]) / ONE_GB_IN_BYTES
+        bytes_scanned = float(query_status["CumulativeBytesScanned"]) / self.ONE_GB_IN_BYTES
         print(f"Data scanned so far: {bytes_scanned} GB")
 
-        bytes_metered = float(query_status["CumulativeBytesMetered"]) / ONE_GB_IN_BYTES
+        bytes_metered = float(query_status["CumulativeBytesMetered"]) / self.ONE_GB_IN_BYTES
         print(f"Data metered so far: {bytes_metered} GB")
 
         column_info = query_result['ColumnInfo']
