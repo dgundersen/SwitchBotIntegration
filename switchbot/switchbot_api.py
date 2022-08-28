@@ -13,10 +13,8 @@ class SwitchBotApi(ApiInterface):
 
         app_config = AppConfig()
 
-        config = app_config.get_config()
-
-        self.token = config['token']
-        self.desklight_device_id = config['desklight_device_id']
+        self.token = app_config.config['token']
+        self.desklight_device_id = app_config.config['desklight_device_id']
 
     def _get_body_from_response(self, resp):
         if resp and 'message' in resp:

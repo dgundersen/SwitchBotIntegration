@@ -1,13 +1,25 @@
-
-
+import boto3
 
 class QueryClient:
-    
+
+    QUERY_URL = "https://query-cell2.timestream.us-east-1.amazonaws.com"
     ONE_GB_IN_BYTES = 1073741824
 
-    def __init__(self, client):
-        self.client = client
-        self.paginator = client.get_paginator('query')
+    def __init__(self, region, aws_config):
+
+        self.region_name = region
+
+        session = boto3.Session()
+
+        self.client = session.client(
+            'timestream-query',
+            region_name=self.region_name,
+            endpoint_url=self.QUERY_URL,
+            aws_access_key_id=aws_config['access_key_id'],
+            aws_secret_access_key=aws_config['secret_access_key']
+        )
+
+        self.paginator = self.client.get_paginator('query')
 
     def run_query(self, query_string):
 
