@@ -3,7 +3,7 @@ import json
 
 class AppConfig:
 
-    DEFAULT_CONFIG_FILE_PATH = '..\\switchbot_config.json'
+    DEFAULT_CONFIG_FILE_PATH = 'switchbot_config.json'
 
     def __init__(self):
         # TODO: error handling for missing file or token

@@ -28,7 +28,7 @@ def desklight():
 
     switchbot.bot_press(switchbot.desklight_device_id)
 
-def get_meter_readings():
+def print_meter_readings():
     print('Getting temp/humidity..\n')
 
     switchbot = SwitchBotApi()
@@ -40,6 +40,8 @@ def get_meter_readings():
 
     if devices:
         for device in devices:
+            print(device)
+
             if 'deviceType' in device and device['deviceType'] == 'Meter':
                 meter = Meter(name=device['deviceName'])
 
@@ -55,7 +57,7 @@ def get_meter_readings():
         meters = sorted(meters, key=lambda x: x.device_name)
 
         for meter in meters:
-            print(f"{meter.device_name}\nTemperature: {round(meter.temperature, 1)} F\nHumidity: {meter.humidity} %\n")
+            print(meter)
     else:
         print('No meters found')
 
@@ -67,7 +69,7 @@ if __name__ == '__main__':
     if command == 'desklight':
         desklight()
     elif command == 'temp':
-        get_meter_readings()
+        print_meter_readings()
     else:
         test_devices(bot_press=False)
 

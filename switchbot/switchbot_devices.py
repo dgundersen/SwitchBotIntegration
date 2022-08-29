@@ -17,3 +17,5 @@ class Meter(object):
 
         return (temp * 1.8) + 32
 
+    def __str__(self):
+        return f"{self.device_name}\nTemperature: {round(self.temperature, 1)} F\nHumidity: {self.humidity} %\n"
